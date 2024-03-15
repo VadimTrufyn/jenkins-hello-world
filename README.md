@@ -1,2 +1,2 @@
 # jenkins-hello-world
-Jenkins_in_docker
+Project for practicing jenkins + docker container
