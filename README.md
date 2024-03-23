@@ -36,7 +36,5 @@ docker inspect <container_id> | grep IPAddress
 
 tcp://172.18.0.3:2375
 
-
-
 devopsjourney1/myjenkinsagents:python
  
