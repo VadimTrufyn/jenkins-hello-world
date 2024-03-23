@@ -38,3 +38,5 @@ tcp://172.18.0.3:2375
 
 devopsjourney1/myjenkinsagents:python
  
+Step6.
+now, it is time to create pipline using Jenkinsfile
