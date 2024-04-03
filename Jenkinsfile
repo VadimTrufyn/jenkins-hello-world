@@ -12,8 +12,10 @@ pipeline {
             }
         }
         stage('build image') {
-            scripts {
-                echo 'start build image'
+            steps {
+                scripts {
+                    echo 'start build image'
+                }
             }
         }
     }
