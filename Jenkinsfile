@@ -1,22 +1,33 @@
 pipeline {
     agent any
-    tools{
-        maven 'Maven3.9.6'
-    } 
     stages {
-        stage('build') {
+        stage("init") {
             steps {
-                scripts{
-                    echo 'start build'
+                script {
+                    echo "init"
                 }
             }
         }
-        stage('build image') {
+        stage("build jar") {
             steps {
-                scripts{
-                    echo 'start build image'
+                script {
+                    echo "building jar"
                 }
             }
         }
-    }
+        stage("build image") {
+            steps {
+                script {
+                    echo "building image"
+                }
+            }
+        }
+        stage("deploy") {
+            steps {
+                script {
+                    echo "deploying"
+                }
+            }
+        }
+    }   
 }
