@@ -23,8 +23,10 @@ pipeline {
             steps {
                 script {
                     echo "building image"
-                    withCredentials([usernamePassword(credentialId: 'docker-hub', passwordVariable: 'PASS',usernameVariable: 'USER')]) {
-                        sh 'docker build -t truefunnny/test-repo:jmv-1 .'
+                    withCredentials([usernamePassword(credentialsId: 'docker-hub', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
+                        sh "echo $PASS | docker login -u $USER --password-stdin"
+                        sh "docker build -t truefunnny/test-repo:jmv-1 ."
+                        sh 'docker push truefunnny/test-repo:jmv-1'
                     }
                 }
             }
