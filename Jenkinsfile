@@ -1,33 +1,42 @@
 pipeline {
-    agent { 
-        node {
-            label 'docker-jenkins-python'
-            }
-      }
-    triggers {
-        pollSCM '*/2 * * * *'
+    agent any
+    tools {
+        maven 'Maven3.9.6'
     }
     stages {
-        stage('Build') {
+        stage("init") {
             steps {
-                echo "Building.."
+                script {
+                    echo "init"
+                }
             }
         }
-        stage('Test') {
+        stage("build jar") {
             steps {
-                echo "Testing.."
-                sh '''
-                echo "test"
-                '''
+                script {
+                    echo "building jar"
+                    sh "mvn package"
+                }
             }
         }
-        stage('Deliver') {
+        stage("build image") {
             steps {
-                echo 'Deliver....'
-                sh '''
-                echo "doing delivery stuff.."
-                '''
+                script {
+                    echo "building image"
+                    withCredentials([usernamePassword(credentialsId: 'docker-hub', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
+                        sh "echo $PASS | docker login -u $USER --password-stdin"
+                        sh "docker build -t truefunnny/test-repo:jmv-1 ."
+                        sh 'docker push truefunnny/test-repo:jmv-1'
+                    }
+                }
             }
         }
-    }
+        stage("deploy") {
+            steps {
+                script {
+                    echo "deploying"
+                }
+            }
+        }
+    }   
 }
